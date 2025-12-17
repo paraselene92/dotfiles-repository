@@ -87,7 +87,7 @@ if [ -f /.dockerenv ]; then
   # 4. 抽出されたバイナリを /usr/local/bin に配置し、cleanup
   # 実際のバイナリは squashfs-root/usr/bin/nvim にある
   sudo cp squashfs-root/usr/bin/nvim /usr/local/bin/nvim
-  sudo rm -rf squashfs-root "${NVIM_APPIMAGE}" sudo apt install -y neovim
+  sudo rm -rf squashfs-root "${NVIM_APPIMAGE}"
 
   # delta
   mkdir -p /tmp/delta
