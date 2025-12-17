@@ -15,7 +15,7 @@ if [ ! -d "$HOME"/.config ]; then
   mkdir "${HOME}"/.config
 fi
 
-ln -vfs "${CURRENT_DIR}" "${HOME}"/.config/nvim
+# ln -vfs "${CURRENT_DIR}" "${HOME}"/.config/nvim
 
 # install dependencies if in container
 if [ -f /.dockerenv ]; then
