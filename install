@@ -74,6 +74,7 @@ if [ -f /.dockerenv ]; then
   NEOVIM_VERSION="0.9.5" 
   NVIM_APPIMAGE="nvim.appimage"
   NVIM_URL="https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/${NVIM_APPIMAGE}"
+  NVIM_RTP_DIR="/usr/local/share/nvim"
   
   curl -LO "${NVIM_URL}"
   
@@ -89,6 +90,7 @@ if [ -f /.dockerenv ]; then
   sudo cp squashfs-root/usr/bin/nvim /usr/local/bin/nvim
   sudo rm -rf squashfs-root "${NVIM_APPIMAGE}"
 
+  echo "export VIMRUNTIME=${NVIM_RTP_DIR}" | sudo tee -a /etc/profile.d/nvim_runtime.sh > /dev/null
   # delta
   mkdir -p /tmp/delta
   cd /tmp/delta
