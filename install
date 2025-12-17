@@ -68,10 +68,26 @@ if [ -f /.dockerenv ]; then
   echo '{ "path": "cz-conventional-changelog" }' >~/.czrc
 
   # Neovim
-  sudo apt install -y software-properties-common
-  sudo add-apt-repository -y ppa:neovim-ppa/unstable
-  sudo apt update
-  sudo apt install -y neovim
+  # sudo apt install -y software-properties-common
+  # sudo add-apt-repository -y ppa:neovim-ppa/unstable
+  # sudo apt update
+  NEOVIM_VERSION="0.9.5" 
+  NVIM_APPIMAGE="nvim.appimage"
+  NVIM_URL="https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/${NVIM_APPIMAGE}"
+  
+  curl -LO "${NVIM_URL}"
+  
+  # 2. AppImageを一時的に実行可能にする
+  chmod u+x "${NVIM_APPIMAGE}"
+  
+  # 3. AppImageの中身を抽出
+  # 実行すると、スクリプト実行場所の直下に 'squashfs-root' ディレクトリが作成される
+  ./"${NVIM_APPIMAGE}" --appimage-extract
+  
+  # 4. 抽出されたバイナリを /usr/local/bin に配置し、cleanup
+  # 実際のバイナリは squashfs-root/usr/bin/nvim にある
+  sudo cp squashfs-root/usr/bin/nvim /usr/local/bin/nvim
+  sudo rm -rf squashfs-root "${NVIM_APPIMAGE}" sudo apt install -y neovim
 
   # delta
   mkdir -p /tmp/delta
